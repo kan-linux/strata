@@ -613,7 +613,7 @@ fn environment(anchor: &impl IsA<gtk::Widget>) -> Vec<(String, String)> {
         (tr("Toolkit"), super::about::toolkit_version()),
         (
             "GStreamer".to_owned(),
-            gstreamer::version_string().to_string(),
+            "N/A".to_owned(),
         ),
         (tr("Kernel"), kernel.trim().to_owned()),
         (tr("Desktop environment"), desktop),
