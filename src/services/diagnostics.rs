@@ -539,26 +539,7 @@ struct GstreamerProbe {
 }
 
 fn probe_gstreamer() -> Result<GstreamerProbe, String> {
-    use gstreamer as gst;
-    use gstreamer::prelude::*;
-
-    gst::init().map_err(|error| error.to_string())?;
-    let missing = AUDIO_ELEMENTS
-        .iter()
-        .map(|(name, _)| *name)
-        .filter(|name| gst::ElementFactory::find(name).is_none())
-        .collect();
-    let mut sinks: Vec<_> = gst::ElementFactory::factories_with_type(
-        gst::ElementFactoryType::SINK | gst::ElementFactoryType::MEDIA_AUDIO,
-        gst::Rank::MARGINAL,
-    )
-    .into_iter()
-    .collect();
-    sinks.sort_by_key(|factory| std::cmp::Reverse(factory.rank()));
-    Ok(GstreamerProbe {
-        missing,
-        sink: sinks.first().map(|factory| factory.longname().to_owned()),
-    })
+    Err("GStreamer is not supported in this build".to_owned())
 }
 
 fn audio_playback(probe: Result<GstreamerProbe, String>) -> Check {

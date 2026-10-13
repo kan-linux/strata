@@ -742,7 +742,8 @@ impl DecodedMedia {
                         self.restart_at(saved);
                         break;
                     }
-                    let audio = header.audio.then(|| self.pcm_output()).transpose()?;
+                    // kan-linux: GStreamer audio playback removed; run video-only.
+                    let audio: Option<PcmOutput> = None;
                     imp.audio.replace(audio);
                     imp.header.set(Some(header));
                     self.invalidate_size();
